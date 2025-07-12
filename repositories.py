@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 from flask import session
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import os
 
 class AbstractUsersRepo(ABC):
     @abstractmethod
@@ -101,13 +102,21 @@ class SessionUsersRepo(AbstractUsersRepo):
 
 class PostgresUsersRepo(AbstractUsersRepo):
     def __init__(self):
-        self.conn = psycopg2.connect(
-            dbname="flask_users",
-            user="olgaakukina",        # ← замени на своего пользователя
-            password="",  # ← и пароль
-            host="localhost",        # или IP, если удалённо
-            port="5432"              # обычно порт по умолчанию
-        )
+        url = os.getenv("DATABASE_URL")
+
+        if url:
+            if url.startswith("postgres://"):
+                url = url.replace("postgres://", "postgresql://", 1)
+            self.conn = psycopg2.connect(url)
+        else:
+            self.conn = psycopg2.connect(
+                dbname="flask_users",
+                user="olgaakukina",
+                password="",
+                host="localhost",
+                port="5432"
+            )
+
 
     def all(self, term=""):
         with self.conn.cursor(cursor_factory=RealDictCursor) as cur:
