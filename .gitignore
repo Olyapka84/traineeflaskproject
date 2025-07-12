@@ -1,25 +1,18 @@
-# Виртуальное окружение
 .venv/
 venv/
 env/
 
-# Файлы Python-компиляции
 __pycache__/
 *.py[cod]
 
-# Конфиденциальные файлы
 .env
 
-# IDE и редакторы
 .idea/
 .vscode/
 
-# Логи
 *.log
 
-# Служебное от pytest
 .cache/
 
-# Файлы ОС
 .DS_Store
 Thumbs.db
