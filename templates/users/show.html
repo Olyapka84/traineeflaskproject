@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <td>ID:</td>
+    <td>{{ user.id }}</td>
+  </tr>
+  <tr>
+    <td>Nickname:</td>
+    <td>{{ user.name }}</td>
+  </tr>
+</table>
+
+<p>
+  <a href="{{ url_for('users_edit', id=user.id) }}">Редактировать</a>
+</p>
+
+<form action="{{ url_for('delete_user', id=user.id) }}" method="post"
+      onsubmit="return confirm('Вы уверены, что хотите удалить пользователя?');">
+  <input type="submit" value="Удалить">
+</form>
