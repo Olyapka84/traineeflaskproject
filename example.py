@@ -9,9 +9,7 @@ app = Flask(__name__)
 app.secret_key = "your_secret_key"
 app.logger.setLevel("DEBUG")
 
-# Используй 'session' или 'file'
 app.config["USERS_REPO"] = "postgres"
-
 
 def get_users_repo():
     if app.config["USERS_REPO"] == "session":
